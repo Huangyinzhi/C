@@ -1,0 +1,48 @@
+#include<stdio.h>
+int Leapyear(int year){
+        if((year%4 ==0 && year%100!=0)||year%400==0)
+        { return 1;}
+        else { return 0;}
+}
+int Alldays (int month, int year){
+        if (month==2){
+                return 28+Leapyear(year);}
+        else if (month==4||month==6||month==9||month==11){
+                return 30;
+        }else if (month==0){
+                return 0;}
+        else{
+                return 31;
+                }
+}
+
+int Calendar(int year){
+        int firstday,month,day,alldays1, alldays2;
+        firstday=((year-1)*365+(year-1)/4-(year-1)/100+(year-1)/400+1)%7;
+        printf("===================%d=================\n",year);
+        for (month=1;month<=12;month++){
+                printf("\n===================%d==================\n",month);
+                printf("  Sun  Mon  Tue  Wed  Thu  Fri  Sat \n");
+                alldays1=Alldays(month-1,year);
+                firstday=(alldays1+firstday)%7;
+                for(day=1;day<=firstday;day++){
+                        printf("     ");
+                        }
+
+                alldays2=Alldays(month,year);
+                for(day=1;day<= alldays2;day++){
+                       printf("%5d",day);
+                        if( (day+firstday)%7==0){
+                                printf("\n");
+                        }
+                }
+        }
+}
+
+int main(){
+        int year;
+        printf("please enter year:");
+        scanf(" %d", &year);
+        printf("%d",Calendar(year));
+        return 0;
+}
