@@ -1,0 +1,49 @@
+#include <SDL2/SDL.h>
+#include <stdio.h>
+
+int main(int argc, char* argv[]) {
+    SDL_Window *window;                    // 声明一个窗口  
+    SDL_Event event;                       // 声明一个事件变量  
+    int quit = 0;                          // 声明一个用于退出的标志  
+
+    // 初始化SDL  
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        // 初始化失败，打印错误信息  
+        fprintf(stderr, "Could not initialize SDL - %s\n", SDL_GetError());
+        return 1;
+    }
+
+    // 创建一个窗口  
+    window = SDL_CreateWindow("SDL2 Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
+    if (window == NULL) {
+        // 窗口创建失败，打印错误信息  
+        fprintf(stderr, "Could not create window - %s\n", SDL_GetError());
+        SDL_Quit(); // 清理并退出SDL  
+        return 1;
+    }
+
+    // 主循环  
+    while (!quit) {
+        // 处理事件  
+        while (SDL_PollEvent(&event)) {
+            // 用户请求退出  
+            if (event.type == SDL_QUIT) {
+                quit = 1;
+            }
+        }
+     while(1){
+            rolling();}
+        return 0;
+
+
+
+
+        
+
+        // 延迟一下以限制帧率  
+        SDL_Delay(16); // 大约60FPS  
+    }
+
+SDL_DestroyWindow(window);
+SDL_Quit();
+
