@@ -1,0 +1,73 @@
+#include<stdio.h>  
+  
+// 定义一个函数 game，用于打印 3x3 棋盘  
+void game(char board[3][3]){  
+    // 遍历棋盘的每一行  
+    for(int i=0; i<3; i++){  
+        // 遍历当前行的每一个元素  
+        for(int j=0; j<3; j++){  
+           printf("%c", board[i][j]);  
+        }  
+      printf("\n");  
+    }  
+}  
+  
+// 定义一个函数 check，用于检查 3x3 棋盘是否有某一行或某一列被同一种符号（非'0'）填满  
+int check(char board[3][3]){  
+    // 检查每一行  
+    for(int i=0; i<3; i++){  
+        // 如果当前行的所有元素都相同且不为'0'  
+        if(board[i][0]==board[i][1] && board[i][1]==board[i][2]){  
+            // 返回 1，表示有某一行被填满  
+            if(board[i][0]!='0'){  
+                return 1;  
+            }  
+        }  
+    }  
+      
+    // 检查每一列  
+    for(int j=0; j<3; j++){  
+        // 如果当前列的所有元素都相同且不为'0'  
+        if(board[0][j]==board[1][j] && board[1][j]==board[2][j]){  
+       if(board[0][j]!='0'){  
+                return 1; // 返回 1，表示有某一列被填满  
+            }  
+        }  
+    }  
+      
+      
+    return 0;  
+}  
+
+                }
+        }
+        if((board[0][0]==board[1][1]&&board[1][1]==board[2][2])||(board[2][0]==board[1][1]&&board[1][1]==board[0][2])){
+                if(board[1][1]!='0'){return 1;}
+        }
+        return 0;
+}
+
+
+int main(){
+        char board[3][3]={'0','0','0','0','0','0','0','0','0'};
+        int m,n;
+        for(int i=1;i<=9;i++){
+ printf("please:\n");
+                scanf("%d%d",&m,&n);
+                if(i==1||i==3||i==5||i==7||i==9){
+                        board[m-1][n-1]='x';
+                        game(board);
+                        if(check(board)==1){
+                                printf("player1 wins");
+                        break;  }
+
+                }else{
+                        board[m-1][n-1]='o';
+                        game(board);
+                        if(check(board)==1){
+                                printf("player2  wins");
+                        break;  }
+                }
+        }
+        return 0;
+}
