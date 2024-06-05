@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct list_item {
+    int data;
+    struct list_item *next;
+} list_item;
+
+list_item* create_node(int data) {
+    list_item *new_node = (list_item *)malloc(sizeof(list_item));
+    if (new_node == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(EXIT_FAILURE);
+    }
+    new_node->data = data;
+    new_node->next = NULL;
+    return new_node;
+}
+
+ void append_node(list_item **head, int data) {
+    list_item *new_node = create_node(data);
+    if (*head == NULL) {
+        *head = new_node;
+    } else {
+        list_item *current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = new_node;
+    }
+}
+
+ void print_list(list_item *head) {
+list_item *current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+void erase_list(list_item *head) {
+    list_item *current = head;
+    list_item *temp;
+    while (current != NULL) {
+        temp = current->next;
+        free(current);
+        current = temp;
+    }
+}
+
+int main() {
+    list_item *head = NULL;
+
+    append_node(&head, 1);
+    append_node(&head, 2);
+    append_node(&head, 3);
+
+   print_list(head);
+
+
+    erase_list(head);
+
+     head = NULL;
+                     return 0;
+}
+              
