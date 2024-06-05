@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct list_item {
+        int x;
+        struct list _item * next;
+}list_item;
+
+
+void erase_list(list_item *head) {
+    list_item *current = head;
+    list_item *next;
+
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+
+    head = NULL;
+}
+
+int main(){
+        list_item *head = ;
+        erase_list(&head);
