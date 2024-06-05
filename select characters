@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_LINES 100  
+#define MAX_LINE_LENGTH 1024  
+#define MAX_WORDS 10000 
+
+// 定义一个结构体 WordStat，用于存储单词的统计信息  
+typedef struct WordStat {  
+    char word[100];   // 用于存储单词的字符数组，最大长度为99（加上末尾的'\0'）  
+    int counts[MAX_LINES];  
+    int total_count;  // 该单词在所有行中的总出现次数  
+    struct WordStat *next; // 指向下一个 WordStat 结构体的指针，用于形成链表  
+} WordStat;  
+  
+// 定义一个全局的 WordStat 指针，用于作为链表的头节点  
+WordStat *word_list = NULL;  
+  
+// 定义一个函数，用于查找给定的单词是否已经在链表中，如果不在则创建一个新的 WordStat 结构体并添加到链表中  
+WordStat *find_or_create_word(const char *word) {  
+    WordStat *current = word_list; 
+      
+  
+    while (current) {  
+        // 使用 strcmp 函数比较当前结构体的 word 字段和传入的 word 是否相同  
+        if (strcmp(current->word, word) == 0) {  
+            // 如果相同，则返回当前结构体的指针  
+            return current;  
+        }  
+        // 如果不同，则继续遍历下一个结构体  
+        current = current->next; // 移动到下一个 WordStat 结构体  
+    }  
+   
+}
+    }
+  WordStat *new_ws = (WordStat *)malloc(sizeof(WordStat));
+    strcpy(new_ws->word, word);
+    for (int i = 0; i < MAX_LINES; ++i) {
+        new_ws->counts[i] = 0;
+    }
+    new_ws->total_count = 0;
+    new_ws->next = word_list;
+    word_list = new_ws;
+    return new_ws;
+}
+
+
+void read_input_and_count() {
+    char lines[MAX_LINES][MAX_LINE_LENGTH];
+    int line_count = 0;
+
+
+// 当 line_count 小于 MAX_LINES（最大行数）且 fgets 能从 stdin 成功读取一行到 lines[line_count] 时，执行循环体  
+while (line_count < MAX_LINES && fgets(lines[line_count], MAX_LINE_LENGTH, stdin)) 
+    char *word = strtok(lines[line_count], " \t\n\r,.;:?!\"'()-");  
+  
+    // 当 strtok 返回非 NULL（即找到单词）时，执行内部循环  
+    while (word) {  
+  
+        // 将 word 中的所有字符转换为小写  
+        for (char *p = word; *p; ++p) {  
+            *p = tolower(*p);  
+        }  
+  
+        // 调用 find_or_create_word 函数来查找或创建一个 WordStat 结构体实例  
+        // 该函数应该检查 word 是否已经存在于 word_list 链表中，如果存在则返回对应的 WordStat 指针，否则创建一个新的并添加到链表中  
+        WordStat *ws = find_or_create_word(word);  
+  
+      
+        ws->counts[line_count]++;  
+  
+        // 递增该单词的总计数  
+        ws->total_count++;  
+  
+        // 继续使用 strtok 获取下一个单词，此时第一个参数为 NULL，表示从上次调用 strtok 的位置继续  
+        word = strtok(NULL, " \t\n\r,.;:?!\"'()-");  
+    }  
+  
+    // 在读取完一行后，line_count 自增，以便下一次循环处理下一行  
+    line_count++;  
+}   
+
+        lines[line_count][strcspn(lines[line_count], "\n")] = 0;
+        line_count++;
+
+
+        if (strcmp(lines[line_count - 1], "END\n") == 0) {
+            line_count--;
+            break;
+        }
+    }
+
+WordStat *current = word_list;
+    while (current) {
+        printf("Word: %s\n", current->word);
+        printf("Total count: %d\n", current->total_count);
+
+        printf("\n");
+        WordStat *temp = current;
+        current = current->next;
+        free(temp);
+    }
+    word_list = NULL;
+}
+
+int main() {
+    read_input_and_count();
+    return 0;
+}
+                                
