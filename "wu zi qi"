@@ -1,0 +1,61 @@
+#include<stdio.h>
+// 定义一个函数game，用于打印15x15的棋盘  
+void game(char board[15][15]){  
+    for(int i=0;i<15;i++){ // 遍历棋盘的每一行  
+        for(int j=0;j<15;j++){ // 遍历当前行的每一个元素  
+            printf("%c", board[i][j]); // 打印当前元素  
+        }  
+        printf("\n"); // 打印完一行后换行  
+    }  
+}  
+  
+// 定义一个函数check，用于检查15x15的棋盘是否有连续五个相同标记的行或列  
+int check(char board[15][15]){  
+   
+    char mark;  
+  
+    // 检查每一行  
+    for(int i=0;i<15;i++){  
+        for (int j = 0; j < 11; j++) { // 注意这里j只遍历到11，因为我们需要检查连续五个元素  
+            if (board[i][j] == mark &&  
+                board[i][j + 1] == mark &&  
+                board[i][j + 2] == mark &&  
+                board[i][j + 3] == mark &&  
+                board[i][j + 4] == mark) {  
+                // 如果某一行有连续五个相同标记，则返回1  
+                return 1;  
+            }  
+        }  
+    }  
+
+for (int j=0;j<11;j++){
+            if(board[i][j]==
+    }
+}
+
+
+int main(){
+        char board[15][15];
+        for(int i=0;i<15;i++){
+                for(int j=0;j<15;j++){
+                        board[i][j]='0';
+                }
+        }
+
+        int m,n;
+        for(int i=1;i<=225;i++){
+                printf("please:\n");
+                scanf("%d%d",&m,&n);
+                if(i%2==1){
+                        board[m-1][n-1]='x';
+                        game(board);
+                        if(check(board)==1){
+                                printf("player1 wins");
+                        break;  }
+
+                }else{
+                        board[m-1][n-1]='o';
+                        game(board);
+                        if(check(board)==1){
+                                printf("player2  wins");
+                        break;  }
