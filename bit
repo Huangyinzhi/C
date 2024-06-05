@@ -1,0 +1,15 @@
+#include<stdio.h>
+int main(){
+        char c;
+        printf("please enter character:");
+        scanf("%c",&c);
+        printf("The eighth bit is %d,\n",(c & 0x80) ? 1:0);
+        printf("The seventh bit is %d,\n",(c & 0x40)? 1:0 );
+        printf("The sixth bit is %d,\n",(c & 0x20) ? 1:0);
+        printf("The fifth bit is %d,\n",(c & 0x10) ? 1:0);
+        printf("The forth bit is %d,\n",(c & 0x08) ? 1:0);
+        printf("The thrid bit is %d,\n",(c & 0x04) ? 1:0);
+        printf("The second bit is %d,\n",(c & 0x02) ? 1:0);
+        printf("The first bit is %d,\n", (c & 0x01) ? 1:0);
+        return 0;
+}
